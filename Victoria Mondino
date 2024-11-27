@@ -1,0 +1,142 @@
+Trabajo Final: Herramienta de Diagnóstico de Salud Automatizado usando OpenAI GPT-4
+
+Resumen
+El objetivo de este proyecto es diseñar una herramienta que utilice la API de OpenAI para analizar los síntomas de salud proporcionados por el usuario y sugerir posibles condiciones de salud junto con acciones recomendadas. Este proyecto se centra en cómo la ingeniería de prompts puede aplicarse para crear un asistente de diagnóstico impulsado por inteligencia artificial, mejorando las evaluaciones iniciales de salud de manera eficiente y precisa.
+
+Índice
+Introducción
+Objetivos
+Metodología
+Herramientas y Tecnologías
+Implementación
+Resultados
+Conclusiones
+Referencias
+
+
+1. Introducción
+Explicación del problema, justificación y alcance del proyecto. Este proyecto busca abordar la necesidad de herramientas de diagnóstico preliminar accesibles y automatizadas, utilizando inteligencia artificial para mejorar la experiencia del usuario y facilitar recomendaciones útiles de salud.
+
+
+
+2. Objetivos
+Analizar síntomas de salud proporcionados por el usuario y generar sugerencias de posibles condiciones de salud.
+Proveer acciones recomendadas basadas en los resultados del análisis.
+3. Metodología
+3.1 Recopilación de Datos
+Obtener los datos del usuario a través de un formulario donde describan sus síntomas de manera detallada.
+
+
+
+3.2 Procesamiento de Texto
+Utilizar GPT-4 para interpretar los síntomas y generar un análisis textual detallado sobre las posibles condiciones de salud.
+3.3 Generación de Recomendaciones
+Con base en el análisis, ofrecer sugerencias prácticas como buscar atención médica, realizar ejercicios específicos o tomar medidas preventivas.
+Python
+OpenAI GPT-4 API
+Framework Web (Flask o Django)
+Frontend: HTML, CSS, JavaScript para crear una interfaz amigable.
+
+
+5. Implementación
+5.1 Recopilación de Datos
+Formulario en el frontend que recoge los síntomas proporcionados por el usuario:
+
+html
+
+<form>  
+  <label for="symptoms">Describe tus síntomas:</label>  
+  <textarea id="symptoms" name="symptoms"></textarea>  
+  <button type="submit">Analizar</button>  
+</form>  
+5.2 Procesamiento de Texto con GPT-4
+
+python
+import openai  
+
+openai.api_key = "tu_clave_API"
+
+def analizar_sintomas(symptoms):  
+    prompt = "Analiza los siguientes síntomas de salud proporcionados por un usuario y genera un diagnóstico preliminar junto con recomendaciones. Síntomas: " + symptoms  
+
+    response = openai.ChatCompletion.create(  
+        model="gpt-4",  
+        messages=[  
+            {"role": "system", "content": "Eres un asistente médico que ayuda a analizar síntomas de salud."},  
+            {"role": "user", "content": prompt}  
+        ]  
+    )  
+    return response["choices"][0]["message"]["content"]  
+import openai
+
+# Configurar clave API de OpenAI
+openai.api_key = "tu_clave_API"
+
+# Función para generar una descripción textual utilizando GPT-4
+def openai_chat_gpt4(system, prompt):
+    response = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=[
+            {"role": "system", "content": system},
+            {"role": "user", "content": prompt}
+        ]
+    )
+    return response["choices"][0]["message"]["content"]
+
+# Función para generar una imagen utilizando DALL-E
+def openai_image(prompt):
+    response = openai.Image.create(
+        prompt=prompt,
+        n=1,
+        size="512x512"
+    )
+    image_url = response['data'][0]['url']
+    return image_url
+
+# Configurar el prompt para generar la descripción de la imagen
+system_message = (
+    "Tu objetivo principal es, dado un texto, generar una descripción de una imagen que pueda ser introducida como "
+    "prompt en un modelo de texto a imagen. La descripción debe ser concreta, en no más de 200 palabras, y que pueda "
+    "ser expresada mediante una imagen."
+)
+
+texto = (
+    "Es una herramienta que utiliza inteligencia artificial para analizar síntomas de salud proporcionados por el usuario. "
+    "El objetivo principal es identificar posibles condiciones de salud basadas en los datos ingresados y recomendar acciones "
+    "prácticas. La herramienta combina tecnología avanzada con un enfoque amigable y centrado en las personas, promoviendo la "
+    "salud preventiva y mejorando la calidad de vida de los usuarios."
+)
+
+# Generar descripción textual con GPT-4
+descripcion_imagen = openai_chat_gpt4(system_message, texto)
+
+# Generar la imagen a partir de la descripción
+url_imagen = openai_image(descripcion_imagen)
+
+# Mostrar resultados
+print("Descripción generada para la imagen:")
+print(descripcion_imagen)
+
+print("\nURL de la imagen generada:")
+print(url_imagen)
+Ejemplo de salida esperada
+Descripción generada para la imagen:
+
+La imagen muestra una interfaz digital con un diseño minimalista, representando una herramienta avanzada de diagnóstico de salud. En el centro, hay un avatar de inteligencia artificial que interactúa con un usuario, ilustrando el análisis de síntomas. Alrededor, se ven íconos de salud como un estetoscopio, un corazón y gráficos médicos que simbolizan la precisión de los resultados. El fondo está compuesto por tonos suaves y elementos tecnológicos, como un esquema de redes conectadas, destacando el uso de IA. La imagen transmite innovación, confianza y accesibilidad.
+
+URL de la imagen generada:
+https://oaidalleapiprodscus.blob.core.windows.net/...
+
+# Ejemplo de uso  
+symptoms = "Dolor de cabeza persistente, mareos y náuseas."  
+diagnostico = analizar_sintomas(symptoms)  
+print(diagnostico)  
+5.3 Interfaz de Resultados
+Mostrar el análisis y las recomendaciones al usuario de forma clara y visualmente atractiva.
+
+
+6. Resultados
+La herramienta puede analizar diferentes combinaciones de síntomas y generar sugerencias relevantes. Las pruebas iniciales muestran que el modelo GPT-4 puede proporcionar análisis coherentes y útiles, adaptados al input del usuario.
+
+7. Conclusiones
+Este proyecto demuestra cómo la inteligencia artificial puede emplearse para mejorar evaluaciones iniciales de salud. Aunque no reemplaza el diagnóstico médico, es un recurso valioso para los usuarios que buscan orientación preliminar.
