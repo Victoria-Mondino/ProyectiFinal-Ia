@@ -1,57 +1,61 @@
-Trabajo Final: Herramienta de Diagnóstico de Salud Automatizado usando OpenAI GPT-4
+🚑✨ **Trabajo Final: Herramienta de Diagnóstico de Salud Automatizado usando OpenAI GPT-4** 🤖💡
 
-Resumen
-El objetivo de este proyecto es diseñar una herramienta que utilice la API de OpenAI para analizar los síntomas de salud proporcionados por el usuario y sugerir posibles condiciones de salud junto con acciones recomendadas. Este proyecto se centra en cómo la ingeniería de prompts puede aplicarse para crear un asistente de diagnóstico impulsado por inteligencia artificial, mejorando las evaluaciones iniciales de salud de manera eficiente y precisa.
+📄 **Resumen**
+El objetivo de este proyecto es diseñar una **herramienta innovadora** que utilice la API de **OpenAI GPT-4** para analizar los síntomas de salud proporcionados por el usuario 🤒 y sugerir posibles condiciones de salud 🩺 junto con acciones recomendadas ✅. Este proyecto destaca cómo la **ingeniería de prompts** puede crear un asistente de diagnóstico inteligente, mejorando las evaluaciones iniciales de salud de manera **eficiente y precisa** 🚀.
 
-Índice
-Introducción
-Objetivos
-Metodología
-Herramientas y Tecnologías
-Implementación
-Resultados
-Conclusiones
-Referencias
+---
+ 📚 **Índice**  
+1. [🌟 Introducción](#-introducción)  
+2. [🎯 Objetivos](#-objetivos)  
+3. [🔬 Metodología](#-metodología)  
+4. [🛠️ Herramientas y Tecnologías](#️-herramientas-y-tecnologías)  
+5. [⚙️ Implementación](#️-implementación)  
+6. [📊 Resultados](#-resultados)  
+7. [✅ Conclusiones](#-conclusiones)  
+8. [📖 Referencias](#-referencias)  
 
+---
 
-1. Introducción
-Explicación del problema, justificación y alcance del proyecto. Este proyecto busca abordar la necesidad de herramientas de diagnóstico preliminar accesibles y automatizadas, utilizando inteligencia artificial para mejorar la experiencia del usuario y facilitar recomendaciones útiles de salud.
+ 🌟 **Introducción**  
+¿Te has preguntado cómo la **inteligencia artificial** puede revolucionar el cuidado de la salud? 💡 Este proyecto busca abordar la necesidad de **herramientas accesibles y automatizadas** para el diagnóstico preliminar, utilizando IA para mejorar la experiencia del usuario y brindar **recomendaciones útiles y confiables** 🏥.
 
+---
 
+🎯 **Objetivos**  
+- 🩺 **Analizar síntomas** proporcionados por el usuario y generar sugerencias de posibles condiciones de salud.  
+- ✅ **Proveer acciones recomendadas** basadas en los resultados del análisis.  
 
-2. Objetivos
-Analizar síntomas de salud proporcionados por el usuario y generar sugerencias de posibles condiciones de salud.
-Proveer acciones recomendadas basadas en los resultados del análisis.
-3. Metodología
-3.1 Recopilación de Datos
-Obtener los datos del usuario a través de un formulario donde describan sus síntomas de manera detallada.
+---
 
+🔬 **Metodología**  
 
+ 📋 **3.1 Recopilación de Datos**  
+🌐 Se utiliza un formulario intuitivo para recoger los síntomas que describe el usuario.  
 
-3.2 Procesamiento de Texto
-Utilizar GPT-4 para interpretar los síntomas y generar un análisis textual detallado sobre las posibles condiciones de salud.
-3.3 Generación de Recomendaciones
-Con base en el análisis, ofrecer sugerencias prácticas como buscar atención médica, realizar ejercicios específicos o tomar medidas preventivas.
-Python
-OpenAI GPT-4 API
-Framework Web (Flask o Django)
-Frontend: HTML, CSS, JavaScript para crear una interfaz amigable.
-
-
-5. Implementación
-5.1 Recopilación de Datos
-Formulario en el frontend que recoge los síntomas proporcionados por el usuario:
-
-html
-
+```html
 <form>  
   <label for="symptoms">Describe tus síntomas:</label>  
   <textarea id="symptoms" name="symptoms"></textarea>  
-  <button type="submit">Analizar</button>  
+  <button type="submit">🔍 Analizar</button>  
 </form>  
-5.2 Procesamiento de Texto con GPT-4
+🤖 3.2 Procesamiento de Texto
+El modelo GPT-4 interpreta los síntomas y genera un análisis detallado de las posibles condiciones de salud.
 
+💡 3.3 Generación de Recomendaciones
+Basado en el análisis, se ofrecen acciones prácticas, como buscar atención médica 🏥, realizar ejercicios 🏋️ o tomar medidas preventivas 🛡️.
+
+🛠️ Herramientas y Tecnologías
+🔗 Python
+🤖 OpenAI GPT-4 API
+🌐 Framework web: Flask o Django
+🎨 Frontend: HTML, CSS, JavaScript
+⚙️ Implementación
+📝 5.1 Recopilación de Datos
+Se implementa un formulario de entrada para que los usuarios puedan describir sus síntomas de forma detallada.
+
+⚡ 5.2 Procesamiento de Texto con GPT-4
 python
+Copiar código
 import openai  
 
 openai.api_key = "tu_clave_API"
@@ -67,76 +71,75 @@ def analizar_sintomas(symptoms):
         ]  
     )  
     return response["choices"][0]["message"]["content"]  
+
+
+
 import openai
 
-# Configurar clave API de OpenAI
+ Configuración de la clave API de OpenAI
 openai.api_key = "tu_clave_API"
 
-# Función para generar una descripción textual utilizando GPT-4
-def openai_chat_gpt4(system, prompt):
+ Función para generar una descripción textual utilizando GPT-4
+def openai_chat_gpt4(prompt, texto):
     response = openai.ChatCompletion.create(
         model="gpt-4",
         messages=[
-            {"role": "system", "content": system},
-            {"role": "user", "content": prompt}
+            {"role": "system", "content": prompt},
+            {"role": "user", "content": texto}
         ]
     )
     return response["choices"][0]["message"]["content"]
 
-# Función para generar una imagen utilizando DALL-E
-def openai_image(prompt):
+ Función para generar una imagen utilizando DALL-E
+def openai_image(descripcion):
     response = openai.Image.create(
-        prompt=prompt,
+        prompt=descripcion,
         n=1,
         size="512x512"
     )
     image_url = response['data'][0]['url']
     return image_url
 
-# Configurar el prompt para generar la descripción de la imagen
-system_message = (
+ Prompt y texto inicial
+prompt = (
     "Tu objetivo principal es, dado un texto, generar una descripción de una imagen que pueda ser introducida como "
-    "prompt en un modelo de texto a imagen. La descripción debe ser concreta, en no más de 200 palabras, y que pueda "
+    "prompt en un modelo texto a imagen. La descripción debe ser concreta, en no más de 200 palabras, y que pueda "
     "ser expresada mediante una imagen."
 )
 
 texto = (
-    "Es una herramienta que utiliza inteligencia artificial para analizar síntomas de salud proporcionados por el usuario. "
-    "El objetivo principal es identificar posibles condiciones de salud basadas en los datos ingresados y recomendar acciones "
-    "prácticas. La herramienta combina tecnología avanzada con un enfoque amigable y centrado en las personas, promoviendo la "
-    "salud preventiva y mejorando la calidad de vida de los usuarios."
+    "Es una empresa que se autodefine como humanamente tecnológica. Su misión principal es utilizar las nuevas "
+    "tecnologías para generar cambios de impacto positivo en la sociedad, haciendo siempre foco en las personas."
 )
 
-# Generar descripción textual con GPT-4
-descripcion_imagen = openai_chat_gpt4(system_message, texto)
+ Generar descripción textual
+descripcion_generada = openai_chat_gpt4(prompt, texto)
 
-# Generar la imagen a partir de la descripción
-url_imagen = openai_image(descripcion_imagen)
+ Generar la imagen basada en la descripción
+url_imagen = openai_image(descripcion_generada)
 
-# Mostrar resultados
-print("Descripción generada para la imagen:")
-print(descripcion_imagen)
+ Mostrar resultados
+print("📄 Descripción generada para la imagen:")
+print(descripcion_generada)
 
-print("\nURL de la imagen generada:")
+print("\n🌐 URL de la imagen generada:")
 print(url_imagen)
-Ejemplo de salida esperada
+Ejemplo de Salida Esperada:
 Descripción generada para la imagen:
 
-La imagen muestra una interfaz digital con un diseño minimalista, representando una herramienta avanzada de diagnóstico de salud. En el centro, hay un avatar de inteligencia artificial que interactúa con un usuario, ilustrando el análisis de síntomas. Alrededor, se ven íconos de salud como un estetoscopio, un corazón y gráficos médicos que simbolizan la precisión de los resultados. El fondo está compuesto por tonos suaves y elementos tecnológicos, como un esquema de redes conectadas, destacando el uso de IA. La imagen transmite innovación, confianza y accesibilidad.
+La imagen representaría una empresa con una combinación de elementos tecnológicos y humanos. En primer plano, se muestra un grupo de personas trabajando juntas, demostrando colaboración y trabajo en equipo. Estas personas están rodeadas de dispositivos tecnológicos, como laptops, tabletas y teléfonos inteligentes, que simbolizan el uso de la tecnología en la empresa. Los diversos dispositivos muestran la diversidad de herramientas y plataformas utilizadas para lograr los objetivos. En segundo plano, se ve un paisaje urbano moderno con edificios de cristal y tecnología avanzada, representando el impacto positivo que la empresa tiene en la sociedad. La imagen transmite una sensación de innovación, eficiencia y progreso, destacando la importancia de las personas en el centro de la tecnología y el cambio social.
 
 URL de la imagen generada:
+
 https://oaidalleapiprodscus.blob.core.windows.net/...
 
-# Ejemplo de uso  
-symptoms = "Dolor de cabeza persistente, mareos y náuseas."  
-diagnostico = analizar_sintomas(symptoms)  
-print(diagnostico)  
-5.3 Interfaz de Resultados
-Mostrar el análisis y las recomendaciones al usuario de forma clara y visualmente atractiva.
 
 
-6. Resultados
-La herramienta puede analizar diferentes combinaciones de síntomas y generar sugerencias relevantes. Las pruebas iniciales muestran que el modelo GPT-4 puede proporcionar análisis coherentes y útiles, adaptados al input del usuario.
+🎨 5.3 Interfaz de Resultados
+Se presenta el análisis y las recomendaciones en un formato claro y visualmente atractivo 📊.
 
-7. Conclusiones
-Este proyecto demuestra cómo la inteligencia artificial puede emplearse para mejorar evaluaciones iniciales de salud. Aunque no reemplaza el diagnóstico médico, es un recurso valioso para los usuarios que buscan orientación preliminar.
+📊 Resultados
+✨ La herramienta analiza diferentes combinaciones de síntomas y genera sugerencias relevantes y confiables. Las pruebas iniciales muestran que el modelo GPT-4 es capaz de proporcionar análisis coherentes y adaptados al input del usuario.
+
+✅ Conclusiones
+🚀 Este proyecto demuestra cómo la inteligencia artificial puede emplearse para mejorar evaluaciones iniciales de salud. Aunque no reemplaza un diagnóstico médico profesional, es un recurso valioso para quienes buscan orientación preliminar 🔍
